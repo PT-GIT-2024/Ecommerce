@@ -56,17 +56,21 @@ public class WebSecurityConfig {
     }
 
 
+    //User in Auth controller
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+            //returns a object of Authentication Manager
         return authConfig.getAuthenticationManager();
     }
 
+    //Bean of password encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
+    //Bean of Custom security filter chain created
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())

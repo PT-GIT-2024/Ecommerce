@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "role_id")
     private Integer roleId;
 
-    //by default enum is persisted in database as integer hence we have to give additional metadata because we want to presist as a string
+    //by default enum is persisted in database as integer hence we have to give additional metadata because we want to persist as a string
     @ToString.Exclude
     @Enumerated(EnumType.STRING)
     @Column(length = 20,name="role_name")

@@ -55,7 +55,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     //If user is a seller;there will be products associated with him
-    //mapped by used --> means a foreign key will be present in product table
+    //mapped by user --> means a foreign key will be present in product table
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST,CascadeType.MERGE},
                 orphanRemoval = true)
