@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+This class provides custom handling for unauthorised requests
+used in custom security filter defined in WebSecurityConfig file
+ */
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
@@ -23,6 +28,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException, ServletException {
+
         logger.error("Unauthorized error: {}", authException.getMessage());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

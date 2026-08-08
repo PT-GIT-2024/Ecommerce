@@ -19,6 +19,7 @@ import java.io.IOException;
 
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -39,14 +40,21 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
+                //Creating authentication object
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails,
                                 null,
                                 userDetails.getAuthorities());
+
                 logger.debug("Roles from JWT: {}", userDetails.getAuthorities());
 
+                //Attaching request details to authentication object
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                //Putting authentication object in security context holder
+                //Inturn put into Thread Local of the request thread
+                //Available throughout request/thread lifecycle
+                //not passed automatically to other threads in multithreaded environment
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {

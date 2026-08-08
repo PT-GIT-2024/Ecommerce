@@ -38,6 +38,7 @@ public class Order {
     private String orderStatus;
 
     // Reference to Address
+    //each order will have only one address attached
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;

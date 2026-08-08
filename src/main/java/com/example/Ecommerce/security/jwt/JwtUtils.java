@@ -41,7 +41,7 @@ public class JwtUtils {
 //        return null;
 //    }
 
-    //Used for cookie based auth
+    //Getting JWT from cookie
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie != null) {
@@ -51,6 +51,7 @@ public class JwtUtils {
         }
     }
 
+    //generating JWT for an authenticated user
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
@@ -61,6 +62,7 @@ public class JwtUtils {
         return cookie;
     }
 
+
     public ResponseCookie getCleanJwtCookie() {
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, null)
                 .path("/api")
@@ -68,6 +70,7 @@ public class JwtUtils {
         return cookie;
     }
 
+    //Utility method for generating JWT cookie
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .subject(username)
@@ -84,6 +87,7 @@ public class JwtUtils {
                 .getPayload().getSubject();
     }
 
+    //Utility method
     private Key key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
